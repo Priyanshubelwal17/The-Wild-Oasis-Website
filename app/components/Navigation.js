@@ -5,6 +5,14 @@ export default function Navigation() {
     <ul>
       <li>
         <Link
+          href="/
+        "
+        >
+          Home
+        </Link>
+      </li>
+      <li>
+        <Link
           href="/cabins
         "
         >
