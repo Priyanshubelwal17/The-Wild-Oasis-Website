@@ -38,13 +38,15 @@ export default function Page() {
 
       <div className="col-span-2">
         <Image
+
+
           src={image1}
           alt="Family sitting around a fire pit in front of cabin"
         />
       </div>
 
       <div className="relative aspect-square col-span-2">
-        <Image src="/about-2.jpg" placeholder="blue" fill className="object-cover" alt="Family that manages The Wild Oasis" />
+        <Image src="/about-2.jpg" fill className="object-cover" alt="Family that manages The Wild Oasis" />
       </div>
 
       <div className="col-span-3">
