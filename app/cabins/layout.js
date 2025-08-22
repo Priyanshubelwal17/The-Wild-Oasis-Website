@@ -1,11 +1,11 @@
 export const metadata = {
-  title: "Next.js",
+    title: "Next.js",
 };
 
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <body> {children} </body>
-    </html>
-  );
+export default function CabinsLayout({ children }) {
+    return (
+        <section>
+            {children}
+        </section>
+    );
 }
