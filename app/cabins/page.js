@@ -1,11 +1,12 @@
 import CabinCard from "../_components/CabinCard";
 import Counter from "../_components/Counter"
+import { getCabins } from "../_lib/data-service";
 
 
-export default function Page() {
+export default async function Page() {
   // CHANGE
-  const cabins = [];
-
+  const cabins = await getCabins()
+  console.log(cabins);
   return (
     <div>
       <h1 className="text-4xl mb-5 text-colors-accent-400 font-medium">
