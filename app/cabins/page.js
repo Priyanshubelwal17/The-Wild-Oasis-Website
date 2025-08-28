@@ -4,6 +4,7 @@ import CabinList from "../_components/CabinList";
 import Counter from "../_components/Counter"
 import { getCabins } from "../_lib/data-service";
 import Spinner from "../_components/Spinner";
+import Filter from "../_components/FIlter";
 
 
 export const revalidate = 3600;
@@ -16,6 +17,8 @@ export default async function Page({ searchParams }) {
   console.log(searchParams);
 
   const filter = searchParams?.capacity ?? "all"
+
+
 
   // CHANGE
 
@@ -34,7 +37,11 @@ export default async function Page({ searchParams }) {
         to paradise.
       </p>
 
-      <Suspense fallback={<Spinner />} >
+      <div className="flex justify-end mb-8" >
+        <Filter />
+      </div>
+
+      <Suspense fallback={<Spinner />}  >
 
 
         <CabinList filter={filter} />
