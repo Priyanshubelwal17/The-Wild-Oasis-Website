@@ -1,3 +1,5 @@
+"use client"
+
 import { isWithinInterval } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
@@ -38,13 +40,13 @@ function DateSelector() {
         numberOfMonths={2}
       />
 
-      <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">
+      <div className="flex items-center justify-between px-8 bg-colors-accent-500 text-colors-primary-800 h-[72px]">
         <div className="flex items-baseline gap-6">
           <p className="flex gap-2 items-baseline">
             {discount > 0 ? (
               <>
                 <span className="text-2xl">${regularPrice - discount}</span>
-                <span className="line-through font-semibold text-primary-700">
+                <span className="line-through font-semibold text-colors-primary-700">
                   ${regularPrice}
                 </span>
               </>
@@ -55,7 +57,7 @@ function DateSelector() {
           </p>
           {numNights ? (
             <>
-              <p className="bg-accent-600 px-3 py-2 text-2xl">
+              <p className="bg-colors-accent-600 px-3 py-2 text-2xl">
                 <span>&times;</span> <span>{numNights}</span>
               </p>
               <p>
@@ -68,7 +70,7 @@ function DateSelector() {
 
         {range.from || range.to ? (
           <button
-            className="border border-primary-800 py-2 px-4 text-sm font-semibold"
+            className="border border-colors-primary-800 py-2 px-4 text-sm font-semibold"
             onClick={() => resetRange()}
           >
             Clear
