@@ -1,9 +1,10 @@
-import Image from "next/image"
-import { getBookedDatesByCabinId, getCabin, getCabins, getSettings } from "@/app/_lib/data-service";
-import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
+import Reservation from "@/app/_components/Reservation";
+import Spinner from "@/app/_components/Spinner";
 import TextExpander from "@/app/_components/TextExpander";
-import DateSelector from "@/app/_components/DateSelector";
-import ReservationForm from "@/app/_components/ReservationForm";
+import { getCabin, getCabins } from "@/app/_lib/data-service";
+import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
+import { Suspense } from "react";
 
 // PLACEHOLDER DATA
 
@@ -26,10 +27,15 @@ export async function generateStaticParams() {
     return ids
 }
 
+
+
+
 export default async function Page({ params }) {
     const cabin = await getCabin(params.cabinId);
-    const settings = await getSettings();
-    const bookedDatesByCabinId = await getBookedDatesByCabinId(params.cabinId);
+    // const settings = await getSettings();
+    // const bookedDatesByCabinId = await getBookedDatesByCabinId(params.cabinId);
+
+
     const { id, name, maxCapacity, regularPrice, discount, image, description } =
         cabin;
     console.log(params);
@@ -76,15 +82,18 @@ export default async function Page({ params }) {
 
             <div>
                 <h2 className="text-5xl font-semibold text-center mb-10 text-colors-accent-400">
-                    Reserve today. Pay on arrival.
+                    Reserve {name}. Pay on arrival.
                 </h2>
 
-                <div className="grid grid-cols-2 border border-colors-primary-800 min-h-[400px]" >
-                    <DateSelector />
-                    <ReservationForm />
-                </div>
+
+                <Suspense fallback={<Spinner />} >
+
+                    <Reservation cabin={cabin} />
+                </Suspense>
+
 
             </div>
         </div>
     );
 }
+

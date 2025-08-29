@@ -1,10 +1,7 @@
 import { Suspense } from "react";
-import CabinCard from "../_components/CabinCard";
 import CabinList from "../_components/CabinList";
-import Counter from "../_components/Counter"
-import { getCabins } from "../_lib/data-service";
-import Spinner from "../_components/Spinner";
 import Filter from "../_components/FIlter";
+import Spinner from "../_components/Spinner";
 
 
 export const revalidate = 3600;
