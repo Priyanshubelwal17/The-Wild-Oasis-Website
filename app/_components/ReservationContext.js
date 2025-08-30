@@ -4,10 +4,12 @@ import { createContext, useContext, useState } from "react";
 
 const ReservationContext = createContext()
 
+const initialState = { from: undefined, to: undefined };
+
 function ReservationProvider({ children }) {
     const [range, setRange] = useState({ from: undefined, to: undefined });
-
-    return <ReservationContext.Provider value={{ range, setRange }} >
+    const resetRange = () => setRange(initialState);
+    return <ReservationContext.Provider value={{ range, setRange, resetRange }} >
         {children}
     </ReservationContext.Provider>
 }

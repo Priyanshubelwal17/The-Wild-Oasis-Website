@@ -35,7 +35,7 @@
 
 .rdp {
   --rdp-cell-size: 32px !important;
-  --rdp-accent-color: theme('colors.blue.500') !important;
-  --rdp-background-color: theme('colors.blue.600') !important;
+  --rdp-accent-color: theme('colors.colors.accent.500') !important;
+  --rdp-background-color: theme('colors.colors.accent.600') !important;
   margin: 0 !important;
 }
