@@ -8,7 +8,10 @@ export async function GET(requests, { params }) {
             getCabin(cabinId),
             getBookedDatesByCabinId(cabinId)
         ]);
-        return Response.json({ cabin, bookedDates })
+        return Response.json({
+            cabin, bookedDates
+
+        })
     } catch (error) {
         return Response.json({ message: "cabin not found" })
     }
