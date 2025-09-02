@@ -37,7 +37,7 @@ export default async function Page({ params }) {
 
 
 
-    console.log(params);
+
     return (
         <div className="max-w-6xl mx-auto mt-8">
             <Cabin cabin={cabin} />

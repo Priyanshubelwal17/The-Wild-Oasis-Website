@@ -5,9 +5,11 @@ const authConfig = {
     providers: [
         Google({
             clientId: process.env.AUTH_GOOGLE_ID,
-            clientSecret: process.env.AUTH_GOOGLE_SECREt
-        })
+            clientSecret: process.env.AUTH_GOOGLE_SECRET,
+        }),
     ]
 };
 
-export const { auth, handlers: { GET, POST } } = NextAuth(authConfig);
+
+export const { handlers: { GET, POST }, auth } = NextAuth(authConfig);
+console.log(auth);
