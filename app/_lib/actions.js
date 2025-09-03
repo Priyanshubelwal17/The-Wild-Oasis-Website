@@ -2,6 +2,7 @@
 
 import { redirect } from "next/dist/server/api-utils";
 import { auth, signIn, signOut } from "./auth";
+import supabase from "./supabase";
 
 export async function updateGuest(formData) {
     const session = await auth();
@@ -14,7 +15,19 @@ export async function updateGuest(formData) {
 
     const updateData = { nationality, countryFlag, nationalID };
 
-    console.log(updateData)
+
+    const { data, error } = await supabase
+        .from('guests')
+        .update(updateData)
+        .eq('id', session.user.guestId)
+
+    if (error)
+
+        throw new Error('Guest could not be updated');
+
+
+    // No error here! We handle the possibility of no guest in the sign in callback
+    return data;
 }
 
 export async function signInAction() {
