@@ -3,6 +3,7 @@
 import { redirect } from "next/dist/server/api-utils";
 import { auth, signIn, signOut } from "./auth";
 import supabase from "./supabase";
+import { revalidatePath } from "next/cache";
 
 export async function updateGuest(formData) {
     const session = await auth();
@@ -20,6 +21,8 @@ export async function updateGuest(formData) {
         .from('guests')
         .update(updateData)
         .eq('id', session.user.guestId)
+
+    revalidatePath('/account/profile')
 
     if (error)
 
