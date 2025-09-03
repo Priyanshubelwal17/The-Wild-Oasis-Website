@@ -22,7 +22,6 @@ export async function updateGuest(formData) {
         .update(updateData)
         .eq('id', session.user.guestId)
 
-    revalidatePath('/account/profile')
 
     if (error)
 
@@ -31,6 +30,21 @@ export async function updateGuest(formData) {
 
     // No error here! We handle the possibility of no guest in the sign in callback
     return data;
+
+
+    revalidatePath('/account/profile')
+}
+
+export async function deleteReservation(bookingId) {
+    const session = await auth();
+    if (!session) throw new Error("You must be logged in")
+
+    const { error } = await supabase.from('bookings').delete().eq('id', bookingId);
+
+    if (error)
+
+        throw new Error('Booking could not be deleted');
+
 }
 
 export async function signInAction() {
