@@ -1,6 +1,6 @@
 "use server"
 
-import { redirect } from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
 import { auth, signIn, signOut } from "./auth";
 import supabase from "./supabase";
 import { revalidatePath } from "next/cache";
@@ -49,16 +49,52 @@ export async function deleteReservation(bookingId) {
 
     if (error)
 
-        throw new Error('Booking could not be deleted');
+        throw new Error('You are not allowed to delete this booking');
 
     revalidatePath('/account/reservations')
 }
 
 export async function updateBooking(formData) {
-    console.log(formData);
+    const bookingId = Number(formData.get('bookingId'));
+    // 1) Authentication
+    const session = await auth();
+    if (!session) throw new Error("You must be logged in")
+    // 2) Authorization
 
+    const guestBookings = await getBookings(session.user.guestId)
+    const guestBookingsIds = guestBookings.map((booking) => booking.id);
+
+    if (!guestBookingsIds.includes(bookingId)) throw new Error("You are not allowed to delete this booking")
+    // 3) Building update
+    const updateData = {
+        numGuests: Number(formData.get('numGuests')),
+        observations: formData.get("observations").slice(0, 100)
+    };
+
+
+    // 4) Mutation
+    const { error } = await supabase
+        .from('bookings')
+        .update(updateData)
+        .eq('id', bookingId)
+        .single()
+        .select()
+
+    // 5) Error handling
+    if (error) {
+        console.error(error);
+        throw new Error('Booking could not be updated');
+    }
+
+    // 6) Revalidation
+    revalidatePath(`/account/reservations/edit/${bookingId}`);
+
+    revalidatePath("/account/reservations")
+
+    // 7) Redirecting
+
+    redirect("/account/reservations")
 }
-
 export async function signInAction() {
     await signIn("google", { redirectTo: "/account" })
 }
