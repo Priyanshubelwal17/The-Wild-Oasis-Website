@@ -3,7 +3,7 @@
 import { useOptimistic } from "react";
 import ReservationCard from "./ReservationCard";
 import DeleteReservation from '@/app/_components/DeleteReservation';
-import { deleteReservation } from "../_lib/actions";
+import { deleteBooking } from "../_lib/actions";
 
 function ReservationList({ bookings }) {
     const [optimisticBookings, optimisticDelete] = useOptimistic(bookings, (curBookings, bookingId) => { return curBookings.filter((booking) => booking.id !== bookingId) })
