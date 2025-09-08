@@ -65,6 +65,7 @@ export async function createBooking(bookingData, formData) {
 
     revalidatePath(`/cabin/${bookingData.cabinId}`)
 
+    redirect("/cabins/thankyou")
 }
 
 
@@ -84,6 +85,8 @@ export async function deleteBooking(bookingId) {
         throw new Error('You are not allowed to delete this booking');
 
     revalidatePath('/account/reservations')
+
+
 }
 
 export async function updateBooking(formData) {
