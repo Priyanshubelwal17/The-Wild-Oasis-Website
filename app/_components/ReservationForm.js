@@ -5,8 +5,8 @@ import { useReservation } from "./ReservationContext";
 import { createBooking } from "../_lib/actions";
 
 function ReservationForm({ cabin, user }) {
-  const { range } = useReservation();
-  const { maxCapacity, regularPrice, discount } = cabin;
+  const { range, resetRange } = useReservation();
+  const { maxCapacity, regularPrice, discount, id } = cabin;
 
   const startDate = range?.from;
   const endDate = range?.to;
@@ -39,7 +39,13 @@ function ReservationForm({ cabin, user }) {
 
       </div>
 
-      <form action={createBookingWithData} className='bg-colors-primary-900 py-10 px-16 text-lg flex gap-5 flex-col'>
+      <form
+        // action={createBookingWithData}
+        action={async (formData) => {
+          await createBookingWithData(formData)
+          resetRange()
+        }}
+        className='bg-colors-primary-900 py-10 px-16 text-lg flex gap-5 flex-col'>
         <div className='space-y-2'>
           <label htmlFor='numGuests'>How many guests?</label>
           <select
